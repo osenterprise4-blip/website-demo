@@ -11,7 +11,6 @@
       font-family: Arial, sans-serif;
       background: #0f0f0f;
       color: #ffffff;
-      line-height: 1.6;
     }
 
     header {
@@ -44,7 +43,7 @@
     }
 
     .buttons {
-      margin-top: 25px;
+      margin-top: 30px;
       display: flex;
       gap: 15px;
       justify-content: center;
@@ -52,11 +51,12 @@
     }
 
     .btn {
-      padding: 12px 24px;
+      padding: 14px 28px;
       text-decoration: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: bold;
       transition: 0.3s;
+      min-width: 160px;
     }
 
     .primary {
@@ -65,12 +65,14 @@
     }
 
     .secondary {
-      border: 1px solid #ffffff;
+      background: transparent;
+      border: 2px solid #ffffff;
       color: #ffffff;
     }
 
     .btn:hover {
-      opacity: 0.8;
+      transform: scale(1.05);
+      opacity: 0.85;
     }
 
     footer {
@@ -92,27 +94,33 @@
 <section>
   <h1>Empowering Trading & Financial Growth</h1>
   <p>
-    Beginner-friendly trading education, market insights,
-    and personal development built for consistency and discipline.
+    Beginner-friendly trading education, crypto & stock strategies,
+    and disciplined financial development.
   </p>
 
   <div class="buttons">
-    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn primary" target="_blank">Telegram</a>
-    <a href="#newsletter" class="btn secondary">Newsletter</a>
+    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn primary" target="_blank">
+      Join Telegram
+    </a>
+    <a href="#newsletter" class="btn secondary">
+      Weekly Newsletter
+    </a>
   </div>
 </section>
 
 <section class="dark">
   <h2>What We Offer</h2>
   <p>
-    Day trading, swing trading, crypto & memecoin strategies,
-    and long-term investing education.
+    • Day Trading<br>
+    • Swing Trading<br>
+    • Crypto & Memecoin Trading<br>
+    • Long-Term Investing Education
   </p>
 </section>
 
 <section id="newsletter">
   <h2>Weekly Trading Newsletter</h2>
-  <p>Market insights, strategies, and free resources delivered weekly.</p>
+  <p>Get market insights, strategies, and free resources.</p>
 
   <!-- Beehiiv Embed -->
   <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
@@ -120,18 +128,18 @@
     src="https://subscribe-forms.beehiiv.com/aeb815c4-00a9-4b76-9e46-4ab412807e98"
     frameborder="0"
     scrolling="no"
-    style="width:100%; max-width:560px; height:291px; margin:30px auto; display:block; background-color:transparent;">
+    style="width:100%;max-width:560px;height:291px;margin:30px auto;display:block;">
   </iframe>
 </section>
 
-<section class="dark" id="booking">
+<section class="dark">
   <h2>Book a 1-on-1 Session</h2>
   <p>
-    Schedule a private call to discuss trading strategy,
-    financial growth, or education.
+    Schedule a private call to discuss trading,
+    strategy, or financial growth.
   </p>
 
-  <!-- Calendly inline widget -->
+  <!-- Calendly Inline Widget -->
   <div
     class="calendly-inline-widget"
     data-url="https://calendly.com/osenterprise4/30min"
@@ -139,7 +147,6 @@
   </div>
 
   <script
-    type="text/javascript"
     src="https://assets.calendly.com/assets/external/widget.js"
     async>
   </script>
@@ -149,9 +156,21 @@
   <h2>Join the Community</h2>
 
   <div class="buttons">
-    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn primary" target="_blank">Telegram</a>
-    <a href="https://www.instagram.com/osenterprisee?igsh=aTE1aWk1MXFjOGk0&utm_source=qr" class="btn secondary" target="_blank">Instagram</a>
-    <a href="https://snapchat.com/t/0mCX7urF" class="btn secondary" target="_blank">Snapchat</a>
+    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn primary" target="_blank">
+      Telegram
+    </a>
+
+    <a href="https://www.instagram.com/osenterprisee?igsh=aTE1aWk1MXFjOGk0&utm_source=qr"
+       class="btn secondary"
+       target="_blank">
+      Instagram
+    </a>
+
+    <a href="https://snapchat.com/t/0mCX7urF"
+       class="btn secondary"
+       target="_blank">
+      Snapchat
+    </a>
   </div>
 </section>
 
@@ -161,4 +180,3 @@
 
 </body>
 </html>
-
