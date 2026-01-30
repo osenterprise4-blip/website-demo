@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Os Enterprise</title>
+  <title>O’s Enterprise</title>
 
   <style>
     body {
@@ -23,7 +23,7 @@
 
     section {
       padding: 50px 20px;
-      max-width: 1000px;
+      max-width: 900px;
       margin: auto;
       text-align: center;
     }
@@ -32,12 +32,22 @@
       background: #151515;
     }
 
+    h1, h2 {
+      margin-bottom: 15px;
+    }
+
+    p {
+      max-width: 700px;
+      margin: auto;
+      opacity: 0.9;
+    }
+
     .buttons {
+      margin-top: 25px;
       display: flex;
       gap: 15px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 25px;
     }
 
     .btn {
@@ -45,6 +55,7 @@
       border-radius: 8px;
       font-weight: bold;
       text-decoration: none;
+      min-width: 160px;
     }
 
     .primary {
@@ -55,19 +66,43 @@
     .secondary {
       border: 2px solid #ffffff;
       color: #ffffff;
+      background: transparent;
     }
 
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+    /* FORM STYLES */
+    form {
       margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .image-grid img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    input, select, textarea {
+      padding: 14px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      background: #ffffff;
+      color: #000;
+    }
+
+    button:hover {
+      opacity: 0.85;
     }
 
     footer {
@@ -82,68 +117,64 @@
 
 <body>
 
-<header>Os Enterprise</header>
+<header>
+  O’s Enterprise
+</header>
 
 <section>
   <h1>Trading & Financial Education</h1>
-  <p>Helping traders build discipline, consistency, and confidence.</p>
+  <p>
+    Helping traders build discipline, consistency,
+    and long-term financial growth.
+  </p>
 
   <div class="buttons">
-    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn primary" target="_blank">Telegram</a>
-    <a href="#newsletter" class="btn secondary">Newsletter</a>
+    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn primary" target="_blank">
+      Join Telegram
+    </a>
+    <a href="#newsletter" class="btn secondary">
+      Weekly Newsletter
+    </a>
   </div>
 </section>
 
 <section class="dark">
-  <h2>Inside Our Trading Process</h2>
-
-  <div class="image-grid">
-    <img src="trading 1.jpg" alt="Trading workspace">
-    <img src="trading 2.jpg" alt="Market analysis screen">
-  </div>
+  <h2>What We Offer</h2>
+  <p>
+    • Day Trading<br>
+    • Swing Trading<br>
+    • Crypto & Memecoin Trading<br>
+    • Long-Term Investing Education
+  </p>
 </section>
 
-<section id="newsletter">
-  <h2>Weekly Trading Newsletter</h2>
-
-  <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
-  <iframe
-    src="https://subscribe-forms.beehiiv.com/aeb815c4-00a9-4b76-9e46-4ab412807e98"
-    frameborder="0"
-    scrolling="no"
-    style="width:100%;max-width:560px;height:291px;margin:30px auto;display:block;">
-  </iframe>
-</section>
-
-<section class="dark">
-  <h2>Book a 1-on-1 Session</h2>
-
-  <div
-    class="calendly-inline-widget"
-    data-url="https://calendly.com/osenterprise4/30min"
-    style="min-width:320px;height:700px;margin-top:30px;">
-  </div>
-
-  <script
-    src="https://assets.calendly.com/assets/external/widget.js"
-    async>
-  </script>
-</section>
-
+<!-- CLIENT INTAKE FORM -->
 <section>
-  <h2>Join the Community</h2>
+  <h2>Work With O’s Enterprise</h2>
+  <p>Fill out the form below and we’ll reach out.</p>
 
-  <div class="buttons">
-    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn primary" target="_blank">Telegram</a>
-    <a href="https://www.instagram.com/osenterprisee?igsh=aTE1aWk1MXFjOGk0&utm_source=qr" class="btn secondary" target="_blank">Instagram</a>
-    <a href="https://snapchat.com/t/0mCX7urF" class="btn secondary" target="_blank">Snapchat</a>
-  </div>
+  <form action="https://formspree.io/f/mwvbyrjr" method="POST">
+
+    <input type="text" name="name" placeholder="Full Name" required>
+
+    <input type="email" name="email" placeholder="Email Address" required>
+
+    <input type="text" name="experience" placeholder="Trading experience (Beginner / Intermediate / Advanced)">
+
+    <select name="interest" required>
+      <option value="">What are you interested in?</option>
+      <option>Trading Education</option>
+      <option>1-on-1 Mentorship</option>
+      <option>Signals</option>
+      <option>General Inquiry</option>
+    </select>
+
+    <textarea name="message" rows="5" placeholder="Tell us more about your goals"></textarea>
+
+    <button type="submit">Submit</button>
+
+  </form>
 </section>
 
-<footer>
-  © 2026 Os Enterprise. All rights reserved.
-</footer>
-
-</body>
-</html>
-
+<!-- NEWSLETTER -->
+<section
