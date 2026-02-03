@@ -69,6 +69,62 @@
       background: transparent;
     }
 
+    .pnl-section {
+      border: 1px solid #2b2b2b;
+      border-radius: 18px;
+      padding: 40px 20px;
+      background: linear-gradient(145deg, #0f0f0f, #151515);
+    }
+
+    .pnl-header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pnl-header p {
+      max-width: 620px;
+    }
+
+    .pnl-toggle {
+      border: 2px solid #00d47b;
+      color: #00d47b;
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .pnl-toggle:hover {
+      background: #00d47b;
+      color: #000;
+    }
+
+    .pnl-grid {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .pnl-grid[hidden] {
+      display: none;
+    }
+
+    .pnl-card {
+      border-radius: 14px;
+      overflow: hidden;
+      background: #0c0c0c;
+      border: 1px solid #202020;
+    }
+
+    .pnl-card img {
+      width: 100%;
+      display: block;
+      height: auto;
+      object-fit: contain;
+      background: #000;
+    }
+
     /* FORM STYLES */
     form {
       margin-top: 30px;
@@ -112,10 +168,9 @@
       opacity: 0.7;
       font-size: 14px;
     }
+
   </style>
 </head>
-</body>
-</html>
 
 <body>
 
@@ -149,6 +204,31 @@
     • Long-Term Investing Education
     • Financial growth strategy
   </p>
+</section>
+
+<section class="pnl-section">
+  <div class="pnl-header">
+    <h2>PNL Cards</h2>
+    <p>Tap the button to reveal the full proof gallery from recent trades.</p>
+    <button class="btn pnl-toggle" type="button" aria-expanded="false" aria-controls="pnl-gallery">
+      Show PNL Cards
+    </button>
+  </div>
+
+  <div class="pnl-grid" id="pnl-gallery" hidden>
+    <div class="pnl-card"><img src="images/pnl-01.jpeg" alt="PNL card 01"></div>
+    <div class="pnl-card"><img src="images/pnl-03.jpeg" alt="PNL card 03"></div>
+    <div class="pnl-card"><img src="images/pnl-05.jpeg" alt="PNL card 05"></div>
+    <div class="pnl-card"><img src="images/pnl-07.jpeg" alt="PNL card 07"></div>
+    <div class="pnl-card"><img src="images/pnl-09.jpeg" alt="PNL card 09"></div>
+    <div class="pnl-card"><img src="images/pnl-11.jpeg" alt="PNL card 11"></div>
+    <div class="pnl-card"><img src="images/pnl-13.jpeg" alt="PNL card 13"></div>
+    <div class="pnl-card"><img src="images/pnl-17.jpeg" alt="PNL card 17"></div>
+    <div class="pnl-card"><img src="images/pnl-19.jpeg" alt="PNL card 19"></div>
+    <div class="pnl-card"><img src="images/pnl-21.jpeg" alt="PNL card 21"></div>
+    <div class="pnl-card"><img src="images/pnl-23.jpeg" alt="PNL card 23"></div>
+    <div class="pnl-card"><img src="images/pnl-25.jpeg" alt="PNL card 25"></div>
+  </div>
 </section>
 
 <!-- CLIENT INTAKE FORM -->
@@ -207,9 +287,28 @@
 </section>
 
 <footer>
-  © 2026 O’s Enterprise. All rights reserved.(Not Financial advice Educational purpose only)
+  © 2026 O's Enterprise. All rights reserved.(Not Financial advice Educational purpose only)
 </footer>
+
+<script>
+  const pnlToggle = document.querySelector(".pnl-toggle");
+  const pnlGallery = document.querySelector("#pnl-gallery");
+
+  if (pnlToggle && pnlGallery) {
+    pnlToggle.addEventListener("click", () => {
+      const isHidden = pnlGallery.hasAttribute("hidden");
+      if (isHidden) {
+        pnlGallery.removeAttribute("hidden");
+        pnlToggle.textContent = "Hide PNL Cards";
+        pnlToggle.setAttribute("aria-expanded", "true");
+      } else {
+        pnlGallery.setAttribute("hidden", "");
+        pnlToggle.textContent = "Show PNL Cards";
+        pnlToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+</script>
 
 </body>
 </html>
-
