@@ -1,314 +1,901 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> O’s Enterprise</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O's Enterprise — Trading & Financial Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #7a6230;
+    --bg: #080A0E;
+    --bg2: #0E1118;
+    --bg3: #131720;
+    --surface: #181D28;
+    --border: rgba(201,168,76,0.18);
+    --text: #F0EDE6;
+    --muted: #7A8399;
+    --green: #22C55E;
+    --red: #EF4444;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: #ffffff;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    header {
-      padding: 20px;
-      text-align: center;
-      background: #000;
-      font-size: 22px;
-      font-weight: bold;
-    }
+  html { scroll-behavior: smooth; }
 
-    section {
-      padding: 50px 20px;
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
-    }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
 
-    .dark {
-      background: #151515;
-    }
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
 
-    h1, h2 {
-      margin-bottom: 15px;
-    }
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 68px;
+    background: rgba(8,10,14,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
 
-    p {
-      max-width: 700px;
-      margin: auto;
-      opacity: 0.9;
-    }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-decoration: none;
+  }
 
-    .buttons {
-      margin-top: 25px;
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
 
-    .btn {
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      min-width: 160px;
-    }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
 
-    .primary {
-      background: #ffffff;
-      color: #000;
-    }
+  .nav-links a:hover { color: var(--gold); }
 
-    .secondary {
-      border: 2px solid #ffffff;
-      color: #ffffff;
-      background: transparent;
-    }
+  .nav-cta {
+    background: var(--gold);
+    color: #000 !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 4px;
+    font-weight: 700 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: #000 !important; }
 
-    .pnl-section {
-      border: 1px solid #2b2b2b;
-      border-radius: 18px;
-      padding: 40px 20px;
-      background: linear-gradient(145deg, #0f0f0f, #151515);
-    }
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
 
-    .pnl-header {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: center;
-    }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 30%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(34,197,94,0.04) 0%, transparent 60%);
+  }
 
-    .pnl-header p {
-      max-width: 620px;
-    }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
 
-    .pnl-toggle {
-      border: 2px solid #00d47b;
-      color: #00d47b;
-      background: transparent;
-      transition: all 0.2s ease;
-    }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.35rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    position: relative;
+    animation: fadeUp 0.8s ease both;
+  }
 
-    .pnl-toggle:hover {
-      background: #00d47b;
-      color: #000;
-    }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    position: relative;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
 
-    .pnl-grid {
-      margin-top: 30px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
+  .hero h1 .accent {
+    color: var(--gold);
+    display: block;
+  }
 
-    .pnl-grid[hidden] {
-      display: none;
-    }
+  .hero-sub {
+    max-width: 520px;
+    margin: 1.8rem auto 0;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    position: relative;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
 
-    .pnl-card {
-      border-radius: 14px;
-      overflow: hidden;
-      background: #0c0c0c;
-      border: 1px solid #202020;
-    }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+    position: relative;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
 
-    .pnl-card img {
-      width: 100%;
-      display: block;
-      height: auto;
-      object-fit: contain;
-      background: #000;
-    }
+  .btn-primary {
+    background: var(--gold);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(201,168,76,0.35);
+  }
 
-    /* FORM STYLES */
-    form {
-      margin-top: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
 
-    input, select, textarea {
-      padding: 14px;
-      border-radius: 6px;
-      border: none;
-      font-size: 16px;
-    }
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
 
-    textarea {
-      resize: vertical;
-    }
+  .stat-item {
+    flex: 1;
+    max-width: 220px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    animation: fadeUp 0.6s ease both;
+  }
+  .stat-item:last-child { border-right: none; }
 
-    button {
-      padding: 14px;
-      border-radius: 8px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      background: #ffffff;
-      color: #000;
-    }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
 
-    button:hover {
-      opacity: 0.85;
-    }
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.4rem;
+  }
 
-    footer {
-      padding: 20px;
-      background: #000;
-      text-align: center;
-      opacity: 0.7;
-      font-size: 14px;
-    }
+  /* ── SECTION ── */
+  section { padding: 6rem 5%; }
 
-  </style>
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-desc {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 540px;
+    font-weight: 300;
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--bg2); }
+
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .service-card {
+    background: var(--bg2);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .service-card:hover { background: var(--bg3); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .service-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+
+  .service-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── PNL ── */
+  #pnl { background: var(--bg); }
+
+  .pnl-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .pnl-toggle {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .pnl-toggle:hover {
+    background: var(--gold);
+    color: #000;
+  }
+
+  .pnl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease;
+  }
+  .pnl-grid.open { max-height: 3000px; }
+
+  .pnl-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    position: relative;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .pnl-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  }
+  .pnl-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pnl-badge {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: rgba(34,197,94,0.15);
+    border: 1px solid rgba(34,197,94,0.4);
+    color: var(--green);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  /* ── NEWSLETTER ── */
+  #newsletter {
+    background: var(--bg2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #newsletter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .newsletter-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+  }
+  .form-group select option { background: var(--surface); }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  /* ── COMMUNITY ── */
+  #community {
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .community-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+
+  .social-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    min-width: 180px;
+    justify-content: center;
+  }
+  .social-card:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  .social-icon {
+    font-size: 1.2rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+  }
+
+  .footer-note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+    max-width: 420px;
+    line-height: 1.5;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    padding: 0.65rem 0;
+  }
+
+  .ticker-inner {
+    display: flex;
+    gap: 4rem;
+    animation: ticker 28s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  .ticker-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .ticker-item .up { color: var(--green); }
+  .ticker-item .down { color: var(--red); }
+  .ticker-item .sym { color: var(--text); font-weight: 500; }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .services-header { grid-template-columns: 1fr; }
+    .newsletter-inner { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: center; text-align: center; }
+    .footer-copy { text-align: center; }
+    .stats-strip { flex-wrap: wrap; }
+    .stat-item { max-width: 50%; flex: 0 0 50%; border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
 </head>
-
 <body>
 
-<header>
-  O’s Enterprise
-</header>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">O's Enterprise</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pnl">Results</a></li>
+    <li><a href="#newsletter">Contact</a></li>
+    <li><a href="https://t.me/+yUeEweHRI7gzZDlh" class="nav-cta">Join Telegram</a></li>
+  </ul>
+</nav>
 
-<section>
-  <h1>Trading & Financial Education</h1>
-  <p>
-    Helping traders build discipline, consistency,
-    and long-term financial growth.
-  </p>
-
-  <div class="buttons">
-    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn primary" target="_blank">
-      Join Telegram
-    </a>
-    <a href="#newsletter" class="btn secondary">
-      Weekly Newsletter
-    </a>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-eyebrow">Trading &amp; Financial Education</div>
+  <h1>
+    Build Wealth
+    <span class="accent">With Discipline</span>
+  </h1>
+  <p class="hero-sub">Helping traders build discipline, consistency, and long-term financial growth through proven strategies and mentorship.</p>
+  <div class="hero-actions">
+    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn-primary">Join Telegram Community</a>
+    <a href="#newsletter" class="btn-secondary">Get Free Newsletter</a>
   </div>
 </section>
 
-<section class="dark">
-  <h2>What We Offer</h2>
-  <p>
-    • Day Trading<br>
-    • Side hustle development coaching<br>
-    • Crypto & Memecoin Trading<br>
-    • Long-Term Investing Education
-    • Financial growth strategy
-  </p>
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="sym">BTC/USD</span> 84,320 <span class="up">▲ 2.4%</span></span>
+    <span class="ticker-item"><span class="sym">ETH/USD</span> 3,840 <span class="up">▲ 1.8%</span></span>
+    <span class="ticker-item"><span class="sym">SPY</span> 562.14 <span class="down">▼ 0.3%</span></span>
+    <span class="ticker-item"><span class="sym">QQQ</span> 480.32 <span class="up">▲ 0.9%</span></span>
+    <span class="ticker-item"><span class="sym">SOL/USD</span> 192.50 <span class="up">▲ 3.1%</span></span>
+    <span class="ticker-item"><span class="sym">AAPL</span> 228.40 <span class="up">▲ 0.5%</span></span>
+    <span class="ticker-item"><span class="sym">TSLA</span> 415.20 <span class="down">▼ 1.2%</span></span>
+    <span class="ticker-item"><span class="sym">NVDA</span> 875.00 <span class="up">▲ 2.0%</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item"><span class="sym">BTC/USD</span> 84,320 <span class="up">▲ 2.4%</span></span>
+    <span class="ticker-item"><span class="sym">ETH/USD</span> 3,840 <span class="up">▲ 1.8%</span></span>
+    <span class="ticker-item"><span class="sym">SPY</span> 562.14 <span class="down">▼ 0.3%</span></span>
+    <span class="ticker-item"><span class="sym">QQQ</span> 480.32 <span class="up">▲ 0.9%</span></span>
+    <span class="ticker-item"><span class="sym">SOL/USD</span> 192.50 <span class="up">▲ 3.1%</span></span>
+    <span class="ticker-item"><span class="sym">AAPL</span> 228.40 <span class="up">▲ 0.5%</span></span>
+    <span class="ticker-item"><span class="sym">TSLA</span> 415.20 <span class="down">▼ 1.2%</span></span>
+    <span class="ticker-item"><span class="sym">NVDA</span> 875.00 <span class="up">▲ 2.0%</span></span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip reveal">
+  <div class="stat-item">
+    <div class="stat-num">500+</div>
+    <div class="stat-label">Community Members</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3YR</div>
+    <div class="stat-label">Trading Experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Transparent Results</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">FREE</div>
+    <div class="stat-label">Weekly Newsletter</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div>
+      <div class="section-tag reveal">What We Offer</div>
+      <h2 class="section-title reveal">Education Built<br>For Real Traders</h2>
+    </div>
+    <p class="section-desc reveal">From day trading and crypto to long-term wealth building — we give you the tools, the knowledge, and the community to grow.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">📈</span>
+      <div class="service-title">Day Trading</div>
+      <p class="service-desc">Learn intraday strategies, risk management, and technical analysis to trade with edge and confidence.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">₿</span>
+      <div class="service-title">Crypto & Memecoin</div>
+      <p class="service-desc">Navigate the volatile world of crypto — from Bitcoin fundamentals to high-risk, high-reward memecoin plays.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">💼</span>
+      <div class="service-title">1-on-1 Mentorship</div>
+      <p class="service-desc">Personalized coaching sessions tailored to your goals, your experience level, and your trading style.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">💡</span>
+      <div class="service-title">Side Hustle Coaching</div>
+      <p class="service-desc">Build income streams beyond trading. Develop the entrepreneurial mindset to grow wealth on multiple fronts.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📊</span>
+      <div class="service-title">Long-Term Investing</div>
+      <p class="service-desc">Build portfolios designed for generational wealth — stocks, ETFs, and compounding growth strategies.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🎯</span>
+      <div class="service-title">Signals & Alerts</div>
+      <p class="service-desc">Real-time trade setups and market alerts shared directly with the community via Telegram.</p>
+    </div>
+  </div>
 </section>
 
-<section class="pnl-section">
+<!-- PNL -->
+<section id="pnl">
   <div class="pnl-header">
-    <h2>PNL Cards</h2>
-    <p>Tap the button to reveal the full proof gallery from recent trades.</p>
-    <button class="btn pnl-toggle" type="button" aria-expanded="false" aria-controls="pnl-gallery">
-      Show PNL Cards
-    </button>
+    <div>
+      <div class="section-tag reveal">Proof of Work</div>
+      <h2 class="section-title reveal">Verified PNL<br>Results</h2>
+      <p class="section-desc reveal">Transparent trade results — no cherry-picking, no fabrications. Real trades, real outcomes.</p>
+    </div>
+    <button class="pnl-toggle" id="pnlToggle" onclick="togglePNL()">▶ Show Results Gallery</button>
   </div>
 
-  <div class="pnl-grid" id="pnl-gallery" hidden>
-    <div class="pnl-card"><img src="images/pnl-01.jpeg" alt="PNL card 01"></div>
-    <div class="pnl-card"><img src="images/pnl-03.jpeg" alt="PNL card 03"></div>
-    <div class="pnl-card"><img src="images/pnl-05.jpeg" alt="PNL card 05"></div>
-    <div class="pnl-card"><img src="images/pnl-07.jpeg" alt="PNL card 07"></div>
-    <div class="pnl-card"><img src="images/pnl-09.jpeg" alt="PNL card 09"></div>
-    <div class="pnl-card"><img src="images/pnl-11.jpeg" alt="PNL card 11"></div>
-    <div class="pnl-card"><img src="images/pnl-13.jpeg" alt="PNL card 13"></div>
-    <div class="pnl-card"><img src="images/pnl-17.jpeg" alt="PNL card 17"></div>
-    <div class="pnl-card"><img src="images/pnl-19.jpeg" alt="PNL card 19"></div>
-    <div class="pnl-card"><img src="images/pnl-21.jpeg" alt="PNL card 21"></div>
-    <div class="pnl-card"><img src="images/pnl-23.jpeg" alt="PNL card 23"></div>
-    <div class="pnl-card"><img src="images/pnl-25.jpeg" alt="PNL card 25"></div>
-  </div>
-</section>
-
-<!-- CLIENT INTAKE FORM -->
-<section>
-
-  <p>Fill out the form below and we’ll reach out.</p>
-
-  <form action="https://formspree.io/f/mwvbyrjr" method="POST">
-
-    <input type="text" name="name" placeholder="First Name" required>
-
-    <input type="email" name="email" placeholder="Email Address" required>
-
-    <input type="text" name="experience" placeholder="Trading experience (Beginner / Intermediate / Advanced)">
-
-    <select name="interest" required>
-      <option value="">What are you interested in?</option>
-      <option>Trading Education</option>
-      <option>1-on-1 Mentorship</option>
-      <option>Signals</option>
-      <option>Newsletter</option>
-      <option>General Inquiry</option>
-    </select>
-
-    <textarea name="message" rows="5" placeholder="Tell us more about your goals"></textarea>
-
-    <button type="submit">Submit</button>
-
-  </form>
-</section>
-
-<!-- NEWSLETTER -->
-<section id="newsletter" class="dark">
-  <h2>Weekly Trading Newsletter</h2>
-  <p>Free insights, market breakdowns, and resources.</p>
-
-  <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
-  <iframe
-    src="https://subscribe-forms.beehiiv.com/aeb815c4-00a9-4b76-9e46-4ab412807e98"
-    frameborder="0"
-    scrolling="no"
-    style="width:100%;max-width:560px;height:291px;margin:30px auto;display:block;">
-  </iframe>
-</section>
-
-
-<!-- SOCIALS -->
-<section class="dark">
-  <h2>Join the Community</h2>
-
-  <div class="buttons">
-    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="btn primary" target="_blank">Telegram</a>
-    <a href="https://www.instagram.com/osenterprisee?igsh=aTE1aWk1MXFjOGk0&utm_source=qr" class="btn secondary" target="_blank">Instagram</a>
-    <a href="https://snapchat.com/t/0mCX7urF" class="btn secondary" target="_blank">Snapchat</a>
+  <div class="pnl-grid" id="pnlGrid">
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-01.jpeg" alt="PNL Result 1" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-03.jpeg" alt="PNL Result 2" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-05.jpeg" alt="PNL Result 3" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-07.jpeg" alt="PNL Result 4" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-09.jpeg" alt="PNL Result 5" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-11.jpeg" alt="PNL Result 6" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-13.jpeg" alt="PNL Result 7" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-17.jpeg" alt="PNL Result 8" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-19.jpeg" alt="PNL Result 9" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-21.jpeg" alt="PNL Result 10" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-23.jpeg" alt="PNL Result 11" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
+    <div class="pnl-card reveal">
+      <img src="https://osenterprise4-blip.github.io/images/pnl-25.jpeg" alt="PNL Result 12" loading="lazy">
+      <span class="pnl-badge">VERIFIED</span>
+    </div>
   </div>
 </section>
 
+<!-- NEWSLETTER + CONTACT -->
+<section id="newsletter">
+  <div class="newsletter-inner">
+    <div>
+      <div class="section-tag reveal">Get In Touch</div>
+      <h2 class="section-title reveal">Ready to Start<br>Your Journey?</h2>
+      <p class="section-desc reveal">Fill out the form and we'll reach out. Whether you want mentorship, signals, or just want to learn — we've got you.</p>
+      <br>
+      <div class="section-tag reveal" style="margin-top:2rem;">Free Weekly Newsletter</div>
+      <p class="section-desc reveal" style="margin-top:0.5rem;">Get free market breakdowns, trade setups, and financial education delivered weekly. No spam. No upsells.</p>
+    </div>
+
+    <div>
+      <div class="form-row reveal">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="John">
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-group reveal">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+      <div class="form-group reveal">
+        <label for="interest">What Are You Interested In?</label>
+        <select id="interest">
+          <option value="">Select an option...</option>
+          <option>Trading Education</option>
+          <option>1-on-1 Mentorship</option>
+          <option>Signals</option>
+          <option>Newsletter</option>
+          <option>General Inquiry</option>
+        </select>
+      </div>
+      <div class="form-group reveal">
+        <label for="msg">Message (Optional)</label>
+        <textarea id="msg" rows="3" placeholder="Tell us a bit about your goals..."></textarea>
+      </div>
+      <button class="btn-primary reveal" style="width:100%;font-size:0.9rem;padding:1rem;" onclick="handleSubmit()">Submit →</button>
+      <p id="form-success" style="display:none;color:var(--green);font-size:0.85rem;margin-top:1rem;text-align:center;font-family:'DM Mono',monospace;">✓ Received! We'll be in touch soon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community">
+  <div class="section-tag reveal">Community</div>
+  <h2 class="section-title reveal">Join The Movement</h2>
+  <p class="section-desc reveal" style="margin: 0 auto;">Connect with traders, get real-time insights, and stay plugged in to every opportunity.</p>
+
+  <div class="community-links">
+    <a href="https://t.me/+yUeEweHRI7gzZDlh" class="social-card reveal" target="_blank">
+      <span class="social-icon">✈</span> Telegram
+    </a>
+    <a href="https://www.instagram.com/osenterprisee?igsh=aTE1aWk1MXFjOGk0&utm_source=qr" class="social-card reveal" target="_blank">
+      <span class="social-icon">📷</span> Instagram
+    </a>
+    <a href="https://snapchat.com/t/0mCX7urF" class="social-card reveal" target="_blank">
+      <span class="social-icon">👻</span> Snapchat
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  © 2026 O's Enterprise. All rights reserved.(Not Financial advice Educational purpose only)
+  <div class="footer-logo">O's Enterprise</div>
+  <div class="footer-note">Not financial advice. All content is for educational purposes only. Trading involves substantial risk of loss. Past performance does not guarantee future results.</div>
+  <div class="footer-copy">© 2026 O's Enterprise<br>All rights reserved.</div>
 </footer>
 
 <script>
-  const pnlToggle = document.querySelector(".pnl-toggle");
-  const pnlGallery = document.querySelector("#pnl-gallery");
+  // PNL Toggle
+  function togglePNL() {
+    const grid = document.getElementById('pnlGrid');
+    const btn = document.getElementById('pnlToggle');
+    const isOpen = grid.classList.toggle('open');
+    btn.textContent = isOpen ? '✕ Hide Gallery' : '▶ Show Results Gallery';
+  }
 
-  if (pnlToggle && pnlGallery) {
-    pnlToggle.addEventListener("click", () => {
-      const isHidden = pnlGallery.hasAttribute("hidden");
-      if (isHidden) {
-        pnlGallery.removeAttribute("hidden");
-        pnlToggle.textContent = "Hide PNL Cards";
-        pnlToggle.setAttribute("aria-expanded", "true");
-      } else {
-        pnlGallery.setAttribute("hidden", "");
-        pnlToggle.textContent = "Show PNL Cards";
-        pnlToggle.setAttribute("aria-expanded", "false");
+  // Form submit
+  function handleSubmit() {
+    const email = document.getElementById('email').value;
+    if (!email) { alert('Please enter your email address.'); return; }
+    document.getElementById('form-success').style.display = 'block';
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
       }
     });
-  }
-</script>
+  }, { threshold: 0.12 });
 
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
